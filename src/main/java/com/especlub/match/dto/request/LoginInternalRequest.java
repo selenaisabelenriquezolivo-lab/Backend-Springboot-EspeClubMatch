@@ -10,10 +10,14 @@ public class LoginInternalRequest {
 
     @Schema(description = "Nombre de usuario para autenticación", example = "admin-biometrix")
     @NotBlank(message = "El nombre de usuario no puede estar vacío")
-    @Size(min = 6, max = 50, message = "El nombre de usuario debe tener entre 6 y 50 caracteres")
+    @Size(max = 50, message = "El nombre de usuario no debe exceder los 50 caracteres")
     private String username;
 
-    @Schema(description = "Contraseña del usuario para autenticación", example = "P@ssw0rd")
+    @Schema(description = "Correo electrónico del usuario para autenticación")
+    @Size(max = 100, message = "El correo electrónico no debe exceder los 100 caracteres")
+    private String email;
+
+    @Schema(description = "Contraseña del usuario para autenticación", example = "P@ssw0rd*+")
     @NotBlank(message = "La contraseña no puede estar vacía")
     @Size(min = 8, max = 64, message = "La contraseña debe tener entre 8 y 64 caracteres")
     private String password;

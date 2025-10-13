@@ -37,8 +37,7 @@ public class SecurityConfig {
             "/webjars/**",
             "/swagger-ui/index.html",
             // Endpoints públicos del sistema
-            "/api/v1/auth/login",
-            "/api/v1/auth/validate",
+            "/api/v1/auth/**",
             "/api/v1/example/**"
     };
 
@@ -51,7 +50,7 @@ public class SecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(AUTH_WHITELIST).permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .authenticationManager(authManager)
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtEntryPoint))

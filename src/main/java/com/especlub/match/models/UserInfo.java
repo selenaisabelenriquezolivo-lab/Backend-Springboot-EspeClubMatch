@@ -1,13 +1,20 @@
 package com.especlub.match.models;
 
 
+import com.especlub.match.shared.validations.annotations.CustomEcuadorCedula;
+import com.especlub.match.shared.validations.annotations.CustomOnlyDigits;
+import com.especlub.match.shared.validations.annotations.CustomPasswordSecure;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -36,23 +43,39 @@ public class UserInfo {
     private String phone;
 
     @Column(name = "first_name")
-    @Comment("Nombre del usuario.")
-    private String firstName;
+    @Comment("Nombres del usuario.")
+    private String names;
 
     @Column(name = "last_name")
     @Comment("Apellido del usuario.")
-    private String lastName;
+    private String surnames;
 
-    @Column(name = "company")
-    @Comment("Nombre de la empresa.")
-    private String company;
+    @Column(name = "birth_date")
+    @Comment("Fecha de nacimiento del usuario.")
+    private LocalDate birthDate;
 
     @Column(name = "first_login")
     @Comment("Indica si es el primer inicio de sesión del usuario.")
     private Boolean firstLogin;
 
+    @AssertTrue
+    @Comment("Indica si debe aceptar los términos y condiciones.")
+    private Boolean acceptTerms;
+
+    @AssertTrue
+    @Comment("Indica si debe aceptar la política de privacidad.")
+    private Boolean acceptPrivacy;
+
+    @Size(min = 10, max = 10, message = "La cédula debe tener 10 dígitos")
+    @CustomOnlyDigits(message = "La cédula solo debe contener números")
+    @CustomEcuadorCedula(message = "La cédula no es válida para Ecuador")
+    private String nationalId;
+
     @Column(name = "password")
     @Comment("Contraseña encriptada.")
+    @NotBlank(message = "La contraseña no puede estar vacía")
+    @CustomPasswordSecure(message = "La contraseña no cumple con los requisitos de seguridad")
+    @Size(min = 8, max = 100, message = "La contraseña debe tener entre 8 y 100 caracteres")
     private String password;
 
     @Column(name = "record_status")

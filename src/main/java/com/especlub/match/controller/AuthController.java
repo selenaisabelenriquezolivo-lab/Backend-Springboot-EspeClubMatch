@@ -1,10 +1,12 @@
 package com.especlub.match.controller;
 
 import com.especlub.match.dto.request.LoginInternalRequest;
+import com.especlub.match.dto.request.UserInfoRequestDto;
 import com.especlub.match.dto.response.JsonDtoResponse;
 import com.especlub.match.services.interfaces.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +40,12 @@ public class AuthController {
     public ResponseEntity<JsonDtoResponse<Boolean>> logout(HttpServletRequest request, HttpServletResponse responseHttp) {
         boolean result = authService.logoutSession(request, responseHttp);
         return JsonDtoResponse.ok("Cierre de sesión correcto", result).toResponseEntity();
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<JsonDtoResponse<Boolean>> register(@RequestBody @Valid UserInfoRequestDto registerRequest) {
+        boolean result = authService.registerUserWithRoleStudent(registerRequest);
+        return JsonDtoResponse.ok("Registro de usuario correcto", result).toResponseEntity();
     }
 
 }

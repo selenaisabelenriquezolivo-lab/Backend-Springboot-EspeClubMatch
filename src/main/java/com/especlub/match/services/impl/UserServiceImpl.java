@@ -1,5 +1,5 @@
 package com.especlub.match.services.impl;
-import com.especlub.match.exceptions.CustomExceptions;
+import com.especlub.match.shared.exceptions.CustomExceptions;
 import com.especlub.match.models.UserInfo;
 import com.especlub.match.repositories.UserInfoRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -45,10 +45,9 @@ public class UserServiceImpl implements com.especlub.match.services.interfaces.U
                 .orElseThrow(() -> new CustomExceptions("User not found or inactive", 404));
         existing.setUsername(user.getUsername());
         existing.setEmail(user.getEmail());
-        existing.setFirstName(user.getFirstName());
-        existing.setLastName(user.getLastName());
+        existing.setNames(user.getNames());
+        existing.setSurnames(user.getSurnames());
         existing.setPhone(user.getPhone());
-        existing.setCompany(user.getCompany());
         existing.setRoles(user.getRoles());
         existing.setRecordStatus(user.getRecordStatus());
         return userRepo.save(existing);

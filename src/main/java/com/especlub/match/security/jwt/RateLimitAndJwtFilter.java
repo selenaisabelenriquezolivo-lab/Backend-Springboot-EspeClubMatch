@@ -4,7 +4,7 @@ import com.especlub.match.dto.response.JsonDtoResponse;
 import com.especlub.match.models.SystemParameters;
 import com.especlub.match.repositories.SystemParametersRepository;
 import com.especlub.match.security.config.UserDetailsServiceImpl;
-import com.especlub.match.utils.CookieUtils;
+import com.especlub.match.shared.utils.CookieUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.bucket4j.Bandwidth;

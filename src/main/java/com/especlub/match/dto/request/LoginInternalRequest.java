@@ -9,7 +9,6 @@ import lombok.Data;
 public class LoginInternalRequest {
 
     @Schema(description = "Nombre de usuario para autenticación", example = "admin-biometrix")
-    @NotBlank(message = "El nombre de usuario no puede estar vacío")
     @Size(max = 50, message = "El nombre de usuario no debe exceder los 50 caracteres")
     private String username;
 

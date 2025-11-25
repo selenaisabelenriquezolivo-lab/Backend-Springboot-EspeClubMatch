@@ -5,13 +5,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.6</version>
+        <version>3.5.7</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.especlub</groupId>
-    <artifactId>match</artifactId>
-    <version>0.0.1</version>
-    <name>Espe Club Match</name>
+    <groupId>com.example</groupId>
+    <artifactId>sample-spring-boot</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>sample-spring-boot</name>
     <description>Espe Club Match</description>
     <url/>
     <licenses>
@@ -104,7 +104,7 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.8.11</version>
+            <version>2.8.14</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/io.github.cdimascio/java-dotenv -->
         <dependency>

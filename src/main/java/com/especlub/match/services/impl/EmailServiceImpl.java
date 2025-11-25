@@ -1,7 +1,8 @@
 package com.especlub.match.services.impl;
 
-import com.especlub.match.shared.exceptions.CustomExceptions;
 import com.especlub.match.services.interfaces.EmailService;
+import com.especlub.match.shared.exceptions.CustomExceptions;
+import com.especlub.match.services.interfaces.EmailServiceAsync;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +16,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
-public class EmailServiceImpl implements EmailService {
+public class EmailServiceImpl implements EmailServiceAsync, EmailService {
 
     private final JavaMailSender mailSender;
     private final TemplateEngine templateEngine;

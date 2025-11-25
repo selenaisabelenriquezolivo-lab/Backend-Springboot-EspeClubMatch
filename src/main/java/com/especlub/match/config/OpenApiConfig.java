@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Configuration;
                     Proyecto  para encontrar clubs para estudiantes de la ESPE
                     """
         ),
-        servers = @Server(url = "http://especlubsmatch.app/microservices")
+        servers = @Server(url = "http://api.especlubsmatch.app/")
 )
 public class OpenApiConfig {
 }

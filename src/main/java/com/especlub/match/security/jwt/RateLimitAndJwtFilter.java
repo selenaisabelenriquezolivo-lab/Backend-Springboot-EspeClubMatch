@@ -4,6 +4,7 @@ import com.especlub.match.dto.response.JsonDtoResponse;
 import com.especlub.match.models.SystemParameters;
 import com.especlub.match.repositories.SystemParametersRepository;
 import com.especlub.match.security.config.UserDetailsServiceImpl;
+import com.especlub.match.shared.enums.CatalogEnums;
 import com.especlub.match.shared.utils.CookieUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,7 +49,7 @@ public class RateLimitAndJwtFilter extends OncePerRequestFilter {
 
 
     private List<String> getWhitelistedIpsFromDB() {
-        SystemParameters parametro = parametrosSistemaRepository.findByMnemonicAndRecordStatusTrue("WHITE_LISTED_IP");
+        SystemParameters parametro = parametrosSistemaRepository.findByMnemonicAndRecordStatusTrue(CatalogEnums.WHITE_LISTED_IP.getMnemonic());
         if (parametro == null || parametro.getValue() == null) {
             log.warn("No se encontró configuración activa para WHITE_LISTED_IP");
             return Collections.emptyList();

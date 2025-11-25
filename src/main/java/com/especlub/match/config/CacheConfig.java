@@ -17,18 +17,14 @@ public class CacheConfig {
 
     @Bean
     public CacheManager cacheManager() {
-        CaffeineCache ordersCache = new CaffeineCache("orders",
+        CaffeineCache ordersCache = new CaffeineCache("systemParam",
                 Caffeine.newBuilder()
-                        .expireAfterWrite(1, TimeUnit.MINUTES)
-                        .maximumSize(1000)
+                        .expireAfterWrite(1000, TimeUnit.MINUTES)
+                        .maximumSize(100)
                         .build());
-        CaffeineCache primaryRaffleCache = new CaffeineCache("primaryRaffle",
-                Caffeine.newBuilder()
-                        .expireAfterWrite(1, TimeUnit.MINUTES)
-                        .maximumSize(10)
-                        .build());
+
         SimpleCacheManager manager = new SimpleCacheManager();
-        manager.setCaches(List.of(ordersCache, primaryRaffleCache));
+        manager.setCaches(List.of(ordersCache));
         return manager;
     }
 }

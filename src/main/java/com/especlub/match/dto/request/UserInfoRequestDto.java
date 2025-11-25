@@ -1,11 +1,7 @@
 package com.especlub.match.dto.request;
 
-import com.especlub.match.shared.validations.annotations.CustomEcuadorCedula;
-import com.especlub.match.shared.validations.annotations.CustomOnlyDigits;
-import com.especlub.match.shared.validations.annotations.CustomPasswordSecure;
-import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import com.especlub.match.shared.validations.annotations.*;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,18 +21,27 @@ public class UserInfoRequestDto {
     private String username;
 
     @NotBlank(message = "El correo electrónico no puede estar vacío")
+    @CustomValidEmail
+    @Pattern(
+        regexp = ".*@espe\\.edu\\.ec$",
+        message = "El correo debe pertenecer al dominio @espe.edu.ec"
+    )
     private String email;
 
     @NotBlank(message = "El teléfono no puede estar vacío")
     @Size(min = 7, max = 50, message = "El teléfono debe tener entre 7 y 50 caracteres")
+    @CustomOnlyDigits
     private String phone;
 
     @NotBlank(message = "El/los nombre(s) no puede(n) estar vacío(s)")
+    @CustomRealName
     private String names;
 
     @NotBlank(message = "El/los apellido(s) no puede(n) estar vacío(s)")
+    @CustomRealName
     private String surnames;
 
+    @CustomBirthDate
     private LocalDate birthDate;
 
     @AssertTrue(message = "Debe aceptar los términos y condiciones")

@@ -1,5 +1,6 @@
 package com.especlub.match.controller.internal;
 
+import com.especlub.match.docs.StudentClubControllerDoc;
 import com.especlub.match.dto.response.JsonDtoResponse;
 import com.especlub.match.services.interfaces.StudentClubService;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/clubs")
 @RequiredArgsConstructor
-public class StudentClubController {
+public class StudentClubController implements StudentClubControllerDoc {
 
     private final StudentClubService studentClubService;
 

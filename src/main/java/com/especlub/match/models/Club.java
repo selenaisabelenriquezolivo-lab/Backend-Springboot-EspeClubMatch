@@ -16,10 +16,13 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Club {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("Identificador único del club")
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(name = "name", nullable = false)
@@ -42,6 +45,7 @@ public class Club {
             joinColumns = @JoinColumn(name = "club_id"),
             inverseJoinColumns = @JoinColumn(name = "club_reason_id")
     )
+    @ToString.Exclude
     private Set<ClubReason> reasons;
 
     @ManyToMany
@@ -50,6 +54,7 @@ public class Club {
             joinColumns = @JoinColumn(name = "club_id"),
             inverseJoinColumns = @JoinColumn(name = "interest_id")
     )
+    @ToString.Exclude
     private Set<Interest> interests;
 
     @ManyToMany
@@ -58,6 +63,7 @@ public class Club {
             joinColumns = @JoinColumn(name = "club_id"),
             inverseJoinColumns = @JoinColumn(name = "soft_skill_id")
     )
+    @ToString.Exclude
     private Set<SoftSkill> desiredSoftSkills;
 
     /**
@@ -65,10 +71,12 @@ public class Club {
      * mappedBy = "club" refers to ClubMember.club
      */
     @OneToMany(mappedBy = "club", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private Set<ClubMember> members = new HashSet<>();
 
     @OneToOne(mappedBy = "club", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Comment("Perfil adicional del club para el motor de recomendaciones")
+    @ToString.Exclude
     private ClubProfile profile;
 
 

@@ -26,8 +26,12 @@ public class StudentSurvey {
     private Student student;
 
     @Column(name = "raw_answers_json", columnDefinition = "TEXT")
-    @Comment("Respuestas crudas de la encuesta en formato JSON")
+    @Comment("Respuestas crudas de la encuesta en formato JSON o prompt enviado")
     private String rawAnswersJson;
+
+    @Column(name = "llm_response", columnDefinition = "TEXT")
+    @Comment("Respuesta generada por el LLM (Gemini) en texto o JSON")
+    private String llmResponse;
 
     @ManyToMany
     @JoinTable(
@@ -66,4 +70,3 @@ public class StudentSurvey {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 }
-

@@ -1,5 +1,6 @@
 package com.especlub.match.controller.internal;
 
+import com.especlub.match.docs.ClubControllerDoc;
 import com.especlub.match.dto.response.ClubAdminDto;
 import com.especlub.match.dto.response.JsonDtoResponse;
 import com.especlub.match.services.AdminClubService;
@@ -15,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/clubs")
 @RequiredArgsConstructor
-public class ClubController {
+public class ClubController implements ClubControllerDoc {
     private final AdminClubService adminClubService;
 
 

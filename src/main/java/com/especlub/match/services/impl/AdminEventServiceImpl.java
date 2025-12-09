@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+
 @Service
 @RequiredArgsConstructor
 public class AdminEventServiceImpl implements AdminEventService {
@@ -60,6 +62,9 @@ public class AdminEventServiceImpl implements AdminEventService {
     @Override
     @Transactional(readOnly = true)
     public List<EventAdminDto> findAllActiveByUser(String jwt) {
+        if (jwt == null || jwt.isBlank()) {
+            throw new CustomExceptions("Token no proporcionado", HttpStatus.UNAUTHORIZED.value());
+        }
         String username = jwtProvider.getNombreUsuarioFromToken(jwt);
         UserInfo user = userInfoRepository.findByUsernameAndRecordStatusTrue(username);
         if (user == null) {

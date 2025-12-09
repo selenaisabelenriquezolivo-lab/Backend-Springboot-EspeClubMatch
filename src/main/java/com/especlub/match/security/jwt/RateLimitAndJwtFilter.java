@@ -70,7 +70,7 @@ public class RateLimitAndJwtFilter extends OncePerRequestFilter {
 
     private Bucket createNewBucket() {
         Bandwidth limit = Bandwidth.builder()
-                .capacity(50)
+                .capacity(10)
                 .refillGreedy(50, Duration.ofMinutes(1))
                 .build(); // 40 requests per minute
         return Bucket.builder()

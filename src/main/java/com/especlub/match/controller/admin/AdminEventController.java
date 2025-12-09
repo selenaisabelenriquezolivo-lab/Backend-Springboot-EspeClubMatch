@@ -1,5 +1,6 @@
 package com.especlub.match.controller.admin;
 
+import com.especlub.match.docs.AdminEventControllerDoc;
 import com.especlub.match.dto.request.CreateEventRequestDto;
 import com.especlub.match.dto.response.EventAdminDto;
 import com.especlub.match.dto.response.JsonDtoResponse;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @PreAuthorize(RolePermissions.ADMIN_GENERAL)
 @Validated
-public class AdminEventController {
+public class AdminEventController implements AdminEventControllerDoc {
 
     private final AdminEventService adminEventService;
     private final EventNotificationService eventNotificationService;

@@ -3,10 +3,13 @@ package com.especlub.match.services.impl;
 import com.especlub.match.dto.request.CreateClubRequestDto;
 import com.especlub.match.dto.request.UpdateClubRequestDto;
 import com.especlub.match.dto.response.ClubAdminDto;
+import com.especlub.match.dto.response.ClubMemberAdminDto;
 import com.especlub.match.models.Club;
+import com.especlub.match.models.ClubMember;
 import com.especlub.match.models.ClubReason;
 import com.especlub.match.models.Interest;
 import com.especlub.match.models.SoftSkill;
+import com.especlub.match.repositories.ClubMemberRepository;
 import com.especlub.match.repositories.ClubReasonRepository;
 import com.especlub.match.repositories.ClubRepository;
 import com.especlub.match.repositories.InterestRepository;
@@ -30,6 +33,7 @@ public class AdminClubServiceImpl implements AdminClubService {
     private final ClubReasonRepository clubReasonRepository;
     private final InterestRepository interestRepository;
     private final SoftSkillRepository softSkillRepository;
+    private final ClubMemberRepository clubMemberRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -108,6 +112,34 @@ public class AdminClubServiceImpl implements AdminClubService {
                 .orElseThrow(() -> new CustomExceptions("Club no encontrado", 404));
         clubRepository.delete(club);
         return true;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ClubMemberAdminDto> listMembers(Long clubId) {
+        if (clubId == null) return List.of();
+        List<ClubMember> members = clubMemberRepository.findAllByClubIdAndRecordStatusTrue(clubId);
+        return members.stream().map(cm -> {
+            var ui = cm.getUserInfo();
+            String email = ui != null ? ui.getEmail() : null;
+            String names = ui != null ? (ui.getNames() != null ? ui.getNames().trim() : "") : "";
+            String surnames = ui != null ? (ui.getSurnames() != null ? ui.getSurnames().trim() : "") : "";
+            String full = (names + " " + surnames).trim();
+            if (full.isEmpty()) {
+                if (ui != null && ui.getUsername() != null && !ui.getUsername().isBlank()) full = ui.getUsername();
+                else if (email != null) full = email;
+            }
+
+            return ClubMemberAdminDto.builder()
+                    .membershipId(cm.getId())
+                    .studentId(cm.getStudent() != null ? cm.getStudent().getId() : null)
+                    .userInfoId(ui != null ? ui.getId() : null)
+                    .email(email)
+                    .fullName(full)
+                    .recordStatus(cm.getRecordStatus())
+                    .joinedAt(cm.getCreatedAt())
+                    .build();
+        }).toList();
     }
 
     private ClubAdminDto toDto(Club club) {

@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "club_profile")
 @Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -17,11 +18,13 @@ public class ClubProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("Identificador único del perfil del club")
+    @EqualsAndHashCode.Include
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "club_id", nullable = false, unique = true)
     @Comment("Relación uno a uno con el club")
+    @ToString.Exclude
     private Club club;
 
     @Column(name = "club_type", length = 100)

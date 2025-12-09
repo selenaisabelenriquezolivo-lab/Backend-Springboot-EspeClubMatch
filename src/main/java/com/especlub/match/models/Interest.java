@@ -13,6 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class Interest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +39,20 @@ public class Interest {
     private LocalDateTime updatedAt;
 
     @ManyToMany(mappedBy = "interests")
+    @ToString.Exclude
     private Set<Student> students;
-}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Interest)) return false;
+        Interest other = (Interest) o;
+        if (this.id == null || other.id == null) return this == other;
+        return this.id.equals(other.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return (id != null) ? id.hashCode() : System.identityHashCode(this);
+    }
+}

@@ -18,6 +18,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.especlub.match.shared.exceptions.CustomExceptions;
+import org.springframework.http.HttpStatus;
+
 /**
  * JWT Provider for generating and validating JWT tokens.
  * This class provides methods to generate JWT tokens based on user authentication,
@@ -55,6 +58,14 @@ public class JwtProvider {
     }
 
     public String getNombreUsuarioFromToken(String token) {
+        // Defensive checks to avoid passing null/empty token to the jwt lib which throws IllegalArgumentException
+        if (token == null || token.isBlank()) {
+            throw new CustomExceptions("Token inválido o ausente", HttpStatus.UNAUTHORIZED.value());
+        }
+        // validate token first; validateToken already catches and logs specific JWT exceptions
+        if (!validateToken(token)) {
+            throw new CustomExceptions("Token inválido o expirado", HttpStatus.UNAUTHORIZED.value());
+        }
         Jws<Claims> parsed = Jwts.parser().verifyWith(getSecret(secret)).build().parseSignedClaims(token);
         return parsed.getPayload().getSubject();
     }

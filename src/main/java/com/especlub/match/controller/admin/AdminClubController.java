@@ -1,5 +1,6 @@
 package com.especlub.match.controller.admin;
 
+import com.especlub.match.docs.AdminClubControllerDoc;
 import com.especlub.match.dto.request.CreateClubRequestDto;
 import com.especlub.match.dto.request.UpdateClubRequestDto;
 import com.especlub.match.dto.response.ClubAdminDto;
@@ -17,7 +18,7 @@ import java.util.List;
 @RequestMapping("/api/v1/admin/clubs")
 @RequiredArgsConstructor
 @PreAuthorize(RolePermissions.ADMIN_CLUBS)
-public class AdminClubController {
+public class AdminClubController implements AdminClubControllerDoc {
 
     private final AdminClubService adminClubService;
 
@@ -31,6 +32,12 @@ public class AdminClubController {
     public ResponseEntity<JsonDtoResponse<ClubAdminDto>> getById(@PathVariable Long id) {
         ClubAdminDto dto = adminClubService.getById(id);
         return JsonDtoResponse.ok("Club obtenido", dto).toResponseEntity();
+    }
+
+    @GetMapping("/{id}/members")
+    public ResponseEntity<JsonDtoResponse<List<com.especlub.match.dto.response.ClubMemberAdminDto>>> listMembers(@PathVariable Long id) {
+        List<com.especlub.match.dto.response.ClubMemberAdminDto> members = adminClubService.listMembers(id);
+        return JsonDtoResponse.ok("Miembros del club obtenidos", members).toResponseEntity();
     }
 
     @PostMapping
@@ -51,4 +58,3 @@ public class AdminClubController {
         return JsonDtoResponse.ok("Club eliminado", deleted).toResponseEntity();
     }
 }
-

@@ -38,7 +38,8 @@ public class SecurityConfig {
             "/swagger-ui/index.html",
             // Endpoints públicos del sistema
             "/api/v1/auth/**",
-            "/api/v1/example/**"
+            "/api/v1/example/**",
+            "/api/v1/gemini/**"
     };
 
 
@@ -50,7 +51,7 @@ public class SecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(AUTH_WHITELIST).permitAll()
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
                 )
                 .authenticationManager(authManager)
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtEntryPoint))

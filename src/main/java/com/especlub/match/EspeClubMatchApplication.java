@@ -32,6 +32,8 @@ public class EspeClubMatchApplication {
         System.setProperty("ALERT_SMTP_PASSWORD", dotenv.get("ALERT_SMTP_PASSWORD", ""));
         System.setProperty("ALERT_SMTP_TO", dotenv.get("ALERT_SMTP_TO", ""));
         System.setProperty("ALERT_SMTP_PORT", dotenv.get("ALERT_SMTP_PORT", ""));
+        System.setProperty("API_GEMINI_KEY", dotenv.get("API_GEMINI_KEY", ""));
+
 
         SpringApplication.run(EspeClubMatchApplication.class, args);
     }

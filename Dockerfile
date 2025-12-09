@@ -11,12 +11,12 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # === Runtime Stage ===
-FROM openjdk:17-jdk-slim
+FROM openjdk:26-ea-17-jdk-slim
 
 WORKDIR /app
 
 # Copy the jar from the build stage
-COPY --from=build /app/target/match-0.0.1.jar app.jar
+COPY --from=build /app/target/sample-spring-boot-0.0.1-SNAPSHOT.jar app.jar
 
 # Run the app
 ENTRYPOINT ["java", "-jar", "app.jar"]

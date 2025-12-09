@@ -13,10 +13,13 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class SoftSkill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("Identificador único de la habilidad blanda")
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(name = "name", nullable = false, unique = true)
@@ -38,5 +41,6 @@ public class SoftSkill {
     private LocalDateTime updatedAt;
 
     @ManyToMany(mappedBy = "softSkills")
+    @ToString.Exclude
     private Set<Student> students;
 }

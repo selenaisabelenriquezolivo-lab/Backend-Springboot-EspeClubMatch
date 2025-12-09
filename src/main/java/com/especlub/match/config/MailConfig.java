@@ -11,11 +11,6 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import java.util.Properties;
 
-/*
- * Author: Anyel EC
- * Github: https://github.com/Anyel-ec
- * Creation date: 12/01/2025
- */
 @Configuration
 public class MailConfig {
 
